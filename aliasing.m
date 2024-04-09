@@ -3,16 +3,16 @@ pkg load signal
 
 % Definição dos parâmetros das senoides
 A1 = 1;     % Amplitude da primeira senoide
-f1 = 5;     % Frequência da primeira senoide
+f1 = 10;    % Frequência da primeira senoide
 
 A2 = 0.5;   % Amplitude da segunda senoide
-f2 = 10;    % Frequência da segunda senoide
+f2 = 3;     % Frequência da segunda senoide
 
 A3 = 0.8;   % Amplitude da terceira senoide
-f3 = 15;    % Frequência da terceira senoide
+f3 = 30;    % Frequência da terceira senoide
 
 % Definição do vetor de tempo
-t = 0:0.01:2*pi;  % De 0 a 2*pi, com incremento de 0.01
+t = 0:0.005:4*2*pi;  % De 0 a 4 períodos completos, com incremento de 0.005
 
 % Cálculo das senoides
 senoide1 = A1 * sin(2*pi*f1*t);
@@ -25,7 +25,7 @@ soma_senoides = senoide1 + senoide2 + senoide3;
 % Definição do filtro passa-baixas Butterworth
 ordem = 6;  % Ordem do filtro
 fc = 20;    % Frequência de corte
-fs = 200;   % Frequência de amostragem
+fs = 40;    % Frequência de amostragem (não obedecendo ao Teorema de Nyquist)
 
 % Normalização da frequência de corte
 fc_norm = fc / (fs/2);
@@ -83,7 +83,7 @@ ylabel('Amplitude');
 
 % Plotagem do sinal PAM amostrado
 subplot(2,1,2);
-plot(t, sinal_pam, 'b', 'Marker', 'o');
+stem(t, sinal_pam, 'b', 'Marker', 'o');
 title('Sinal PAM Amostrado');
 xlabel('Tempo');
 ylabel('Amplitude');
