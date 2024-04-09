@@ -34,7 +34,7 @@ ordem = 4; % Ordem do filtro
 
 %A frequência de corte (fc) é a frequência em Hertz na qual o filtro começa a atenuar as frequências
 %do sinal de entrada. Qualquer componente de frequência acima dessa frequência de corte é atenuado pelo filtro.
-fc = 5;    % Frequência de corte
+fc = 40;    % Frequência de corte
 
 %A frequência de amostragem (fs) é a taxa na qual o sinal foi originalmente amostrado. É importante para a normalização da
 %frequência de corte e para garantir que o filtro esteja funcionando corretamente com base nas propriedades do sinal original.
