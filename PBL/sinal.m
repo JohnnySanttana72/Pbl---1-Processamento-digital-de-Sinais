@@ -73,5 +73,5 @@ function [xt,fc,phi,t]=sinal(tempo,fcmin,fcmax)  % temo em segundos
 % title('Espectro $|X_{c}(j2\pi f)|$','interpreter','latex');
 
 % Som
-%sound(xt,Fs);
+sound(xt,Fs);
 end

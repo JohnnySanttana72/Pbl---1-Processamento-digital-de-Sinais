@@ -19,6 +19,7 @@ sinal_filtrado = filter(b,a, xt);
 % Converção de radianos/amostra para Hz/plot
 freq = w * f / (2*pi);
 
+% Figura 2: Gáfico do filtro passa-baixa
 figure(1)
 plot(freq, abs(h), [1000, 1000], [0, 1.2], [1500, 1500], [0, 1.2])
 grid on;
@@ -57,9 +58,8 @@ end
 
 sinal_amostrado = sinal_filtrado .* sinal_retangular;
 
-%% Faz o plot dos resultados
-% Figura 1: x(t) sem filtro no domínio do tempo e seu espectro em
-% frequência
+% Faz o plot dos resultados
+% Figura 2:  x(t) sem filtro no domínio do tempo e seu espectro emfrequência
 figure(2);
 subplot(2,1,1);
 plot(t, xt);
@@ -68,13 +68,14 @@ ylabel('Amplitude')
 title('$x(t) = x_{f}(t) + x_{r}(t)$ ','Interpreter','LaTex','FontSize',14);
 axis([0 0.05 -inf inf]);
 
+% Aplicar a FFT ao sinal com ruído, espelhar o espectro e manter o espectro central
 subplot(2,1,2);
 y=fft(xt); grid on;
-yaux=fliplr(y(1,2:end));
+yaux=fliplr(y(1,2:end)); % inverte da esquerda para a direita os elementos da posição 2 até 31999
 X=[yaux y];
-X(1,1:length(X)/4)=0;
-X(1,3*length(X)/4:end)=0;
-length(X);
+X(1,1:length(X)/4)=0; % adição de zeros da posição 1 até 800
+X(1,3*length(X)/4:end)=0; % adição de zeros da posição 2400 até 32000
+length(X)
 omega=0:f/length(y):f-(f/length(y));
 waux=-fliplr(omega(1,2:end));
 w=[waux omega];
@@ -94,12 +95,13 @@ ylabel('Amplitude')
 title('$x_{cc}(t)$','Interpreter','LaTex','FontSize',14);
 axis([0 0.05 -inf inf]);
 
+% Aplicar a FFT ao sinal filtrado, espelhar o espectro e manter o espectro central
 subplot(2,1,2);
 y=fft(sinal_filtrado); grid on;
-yaux=fliplr(y(1,2:end));
+yaux=fliplr(y(1,2:end)); % inverte da esquerda para a direita os elementos da posição 2 até 31999
 X=[yaux y];
-X(1,1:length(X)/4)=0;
-X(1,3*length(X)/4:end)=0;
+X(1,1:length(X)/4)=0; % adição de zeros da posição 1 até 800
+X(1,3*length(X)/4:end)=0; % adição de zeros da posição 2400 até 32000
 length(X);
 omega=0:f/length(y):f-(f/length(y));
 waux=-fliplr(omega(1,2:end));
@@ -121,13 +123,13 @@ title('$x_{cc}(t) = x_{cc}(nT) = x[n]$ amostrado e discretizado', 'Interpreter',
 % axis([0 50 -inf inf]);
 axis([0 0.05 -inf inf]);
 
-
+% Aplicar a FFT ao sinal amostrado, espelhar o espectro e manter o espectro central
 subplot(2,1,2);
 y=fft(sinal_amostrado); grid on;
-yaux=fliplr(y(1,2:end));
+yaux=fliplr(y(1,2:end)); % inverte da esquerda para a direita os elementos da posição 2 até 31999
 X=[yaux y];
-X(1,1:length(X)/4)=0;
-X(1,3*length(X)/4:end)=0;
+X(1,1:length(X)/4)=0; % adição de zeros da posição 1 até 800
+X(1,3*length(X)/4:end)=0; % adição de zeros da posição 2400 até 32000
 length(X);
 omega=0:fs/length(y):fs-(fs/length(y));
 waux=-fliplr(omega(1,2:end));
@@ -178,7 +180,7 @@ ws = 2/f*1500; % Frequência da banda de parada normalizada
 % bw = bandwidth(sinal_filtrado);
 
 % ganho = db2mag(max(sinal_amostrado)/max(sinal_filtrado));
-sinal_reconstruido = (1.55824)*filter(b,a, sinal_amostrado);
+sinal_reconstruido = (1.55823)*filter(b,a, sinal_amostrado);
 
 % sinal_reconstruido = sinal_amostrado*sinc(fd*(ones(length(nd),1)*t-(nd*Td)'*ones(1, length(t))));
 
@@ -191,12 +193,13 @@ ylabel('Amplitude')
 title('$y_{cc}(t)$','Interpreter','LaTex','FontSize',14);
 axis([0 0.05 -inf inf]);
 
+% Aplicar a FFT ao sinal reconstruído, espelhar o espectro e manter o espectro central
 subplot(2,1,2);
 y=fft(sinal_reconstruido); grid on;
-yaux=fliplr(y(1,2:end));
+yaux=fliplr(y(1,2:end)); % inverte da esquerda para a direita os elementos da posição 2 até 31999
 X=[yaux y];
-X(1,1:length(X)/4)=0;
-X(1,3*length(X)/4:end)=0;
+X(1,1:length(X)/4)=0; % adição de zeros da posição 1 até 800
+X(1,3*length(X)/4:end)=0; % adição de zeros da posição 2400 até 32000
 length(X);
 omega=0:fs/length(y):fs-(fs/length(y));
 waux=-fliplr(omega(1,2:end));
@@ -231,24 +234,24 @@ axis([0 0.05 -inf inf]);
 legend('y','x');
 
 subplot(2,1,2);
-plot(w,abs(2*X/length(t)));
+stem(w,abs(2*X/length(t)), '.');
 hold;
 y=fft(xt); grid on;
-yaux=fliplr(y(1,2:end));
+yaux=fliplr(y(1,2:end)); % inverte da esquerda para a direita os elementos da posição 2 até 31999
 X=[yaux y];
-X(1,1:length(X)/4)=0;
-X(1,3*length(X)/4:end)=0;
+X(1,1:length(X)/4)=0; % adição de zeros da posição 1 até 800
+X(1,3*length(X)/4:end)=0; % adição de zeros da posição 2400 até 32000
 length(X);
 omega=0:f/length(y):f-(f/length(y));
 waux=-fliplr(omega(1,2:end));
 w=[waux omega];
 length(w);
-plot(w,abs(2*X/length(t)));
+stem(w,abs(2*X/length(t)), '.');
 xlabel('$f$(Hz)','interpreter','latex');
 ylabel('Magnitude');
 title('$|Y(j\omega)|$ e $|X(j\omega)|$','Interpreter','LaTex','FontSize',14);
 axis([-8000 8000 -inf inf])
-legend('y','x');
+legend('Y','X');
 
-%sound(sinal_reconstruido, f);
+sound(sinal_reconstruido, f);
 
