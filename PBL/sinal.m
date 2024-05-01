@@ -1,6 +1,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%TEC430-PDS-UEFS2021.2
-%Problema 01 
+%TEC430-PDS-UEFS 2021.2
+%Problema 01
 %Arquivo para validação de consultoria
 %Gerador áudio file
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -29,7 +29,7 @@ function [xt,fc,phi,t]=sinal(tempo,fcmin,fcmax)  % temo em segundos
  StopTime = tempo;            % intervalo de duração dos sinais em segundos
  t = 0:dt:StopTime-dt;        % segundos
  % Ondas senoidais:
- interval=100;                % intervalos em Hz entre sinais gerados 
+ interval=100;                % intervalos em Hz entre sinais gerados
  fc = fcmin:interval:fcmax;   % fcmin>0 Hz e fcmax<4000 Hz
  phi = 0:(pi/2)/length(fc):pi/2;
  A=0.5*rand(1,length(fc));        % Amplitudes dos sinais limitados em 0,5 e aleatórios
@@ -39,7 +39,7 @@ function [xt,fc,phi,t]=sinal(tempo,fcmin,fcmax)  % temo em segundos
      end
  end
  xt=sum(x,1);
- 
+
 % Graficando
 % Dominio do tempo
 % figure(1);
@@ -55,7 +55,7 @@ function [xt,fc,phi,t]=sinal(tempo,fcmin,fcmax)  % temo em segundos
 % ylabel('Amplitude');
 % title('Sinal de entrada $x_{c}(t)$','interpreter','latex');
 
-% Dominio da frequência  
+% Dominio da frequência
 % subplot(2,1,2);
 % y=fft(xt); grid on;
 % yaux=fliplr(y(1,2:end));
@@ -73,5 +73,5 @@ function [xt,fc,phi,t]=sinal(tempo,fcmin,fcmax)  % temo em segundos
 % title('Espectro $|X_{c}(j2\pi f)|$','interpreter','latex');
 
 % Som
-sound(xt,Fs);
+%sound(xt,Fs);
 end
